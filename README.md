@@ -88,4 +88,173 @@ Run `kiro-cli`, then `/context show`, and confirm entries for `.kiro/steering/aw
 
 <img src="./assets/images/kiro-cli-aidlc-rules-loaded.png?raw=true" alt="AI-DLC Rules in Kiro CLI" width="700" height="660">
 
+------
+
+## Usage
+
+1. Start any software development project by stating your intent starting with the phrase **"Using AI-DLC, ..."** in the chat
+2. AI-DLC workflow automatically activates and guides you from there
+3. Answer structured questions that AI-DLC asks you
+4. Carefully review every plan that AI generates. Provide your oversight and validation
+5. Review the execution plan to see which stages will run
+6. Carefully review the artifacts and approve each stage to maintain control
+7. All the artifacts will be generated in the `aidlc-docs/` directory
+
+------
+
+## Three-Phase Adaptive Workflow
+
+AI-DLC follows a structured three-phase approach that adapts to your project's complexity:
+
+### 🔵 INCEPTION PHASE
+
+Determines **WHAT** to build and **WHY**
+
+- Requirements analysis and validation
+- User story creation (when applicable)
+- Application Design and creating units of work for parallel development
+- Risk assessment and complexity evaluation
+
+### 🟢 CONSTRUCTION PHASE
+
+Determines **HOW** to build it
+
+- Detailed component design
+- Code generation and implementation
+- Build configuration and testing strategies
+- Quality assurance and validation
+
+### 🟡 OPERATIONS PHASE
+
+Deployment and monitoring (future)
+
+- Deployment automation and infrastructure
+- Monitoring and observability setup
+- Production readiness validation
+
 ---
+
+## Key Features
+
+| Feature                   | Description                                                                                               |
+| ------------------------- | --------------------------------------------------------------------------------------------------------- |
+| **Adaptive Intelligence** | Only executes stages that add value to your specific request                                              |
+| **Context-Aware**         | Analyzes existing codebase and complexity requirements                                                    |
+| **Risk-Based**            | Complex changes get comprehensive treatment, simple changes stay efficient                                |
+| **Question-Driven**       | Structured multiple-choice questions in files, not chat                                                   |
+| **Always in Control**     | Review execution plans and approve each phase                                                             |
+| **Extensible**            | Layer custom rules e.g. security, compliance, and organization-specific rules on top of the core workflow |
+
+---
+
+## Extensions
+
+AI-DLC supports an extension system that lets you layer additional rules on top of the core workflow. Extensions are markdown files organized under `aws-aidlc-rule-details/extensions/` and grouped by category (e.g., `security/`, `testing/`).
+
+### How Extensions Work
+
+Each extension consists of two files placed in the same directory:
+
+- A **rules file** (e.g., `security-baseline.md`) containing the extension's rules.
+- An **opt-in file** (e.g., `security-baseline.opt-in.md`) containing a structured multiple-choice question presented to the user during Requirements Analysis.
+
+At workflow start, AI-DLC scans the `extensions/` directory and loads only `*.opt-in.md` files. During Requirements Analysis, it presents each opt-in prompt to the user. When the user opts in, the corresponding rules file is loaded (derived by naming convention: strip `.opt-in.md`, append `.md`). When the user opts out, the rules file is never loaded. Extensions without a matching `*.opt-in.md` file are always enforced.
+
+Once enabled, extension rules are blocking constraints — at each stage, the model verifies compliance before allowing the stage to proceed.
+
+### Built-in Extensions
+
+The `extensions/` directory ships with the following (new extensions may be added over time):
+
+```text
+aws-aidlc-rule-details/
+└── extensions/
+    ├── security/                      # Extension category
+    │   └── baseline/
+    │       ├── security-baseline.md          # Baseline security rules
+    │       └── security-baseline.opt-in.md   # Opt-in prompt
+    └── testing/                       # Extension category
+        └── property-based/
+            ├── property-based-testing.md          # Property-based testing rules
+            └── property-based-testing.opt-in.md   # Opt-in prompt
+```
+
+> [!IMPORTANT]
+> The security extension rules are provided as a directional reference for building effective security rules within AI-DLC workflows. Each organization should build, customize, and thoroughly test their own security rules before deploying in production workflows.
+
+-----
+
+### Adding Your Own Extensions
+
+You can extend an existing category or create an entirely new one.
+
+1. Create a directory under `extensions/` (e.g., `security/compliance/` or `performance/baseline/`).
+2. Add a **rules file** (e.g., `compliance.md`). Follow the same structure as `security-baseline.md`:
+   - Define each rule as a heading in the format `## Rule <PREFIX-NN>: <Title>` where the prefix is a short category identifier and NN is a sequential number (e.g., `COMPLIANCE-01`, `COMPLIANCE-02`). These IDs are referenced in audit logs and compliance summaries, so they must be unique across all loaded extensions.
+   - Include a **Rule** section describing the requirement.
+   - Include a **Verification** section with concrete checks the model should evaluate.
+3. Add a matching **opt-in file** using the naming convention `<name>.opt-in.md` (e.g., `compliance.opt-in.md`). See `security-baseline.opt-in.md` for the expected format. Omitting this file means the extension is always enforced with no user opt-out.
+4. Rules are blocking by default — if verification criteria are not met, the stage cannot proceed until the finding is resolved.
+
+-----
+
+## Tenets
+
+These are our core principles to guide our decision making.
+
+- **No duplication**. The source of truth lives in one place. If we add support for new tools or formats that require specific files, we generate them from the source rather than maintaining separate copies.
+
+- **Methodology first**. AI-DLC is fundamentally a methodology, not a tool. Users shouldn't need to install anything to get started. That said, we're open to convenience tooling (scripts, CLIs) down the road if it helps users adopt or extend the methodology.
+
+- **Reproducible**. Rules should be clear enough that different models produce similar outcomes. We know models behave differently, but the methodology should minimize variance through explicit guidance.
+
+- **Agnostic**. The methodology works with any IDE, agent, or model. We don't tie ourselves to specific tools or vendors.
+
+- **Human in the loop**. Critical decisions require explicit user confirmation. The agent proposes, the human approves.
+
+---
+## Troubleshooting
+
+### General Issues
+
+| Problem                      | Solution                                                    |
+| ---------------------------- | ----------------------------------------------------------- |
+| Rules not loading            | Check file exists in the correct location for your platform |
+| File encoding issues         | Ensure files are UTF-8 encoded                              |
+| Rules not applied in session | Start a new chat session after file changes                 |
+| Rule details not loading     | Verify `.aidlc-rule-details/` exists with subdirectories    |
+
+### Platform-Specific Issues
+
+#### Amazon Q Developer / Kiro
+
+- Use `/context show` to verify rules are loaded
+- Check `.kiro/steering/` directory structure
+
+### File Path Issues on Windows
+
+- Use forward slashes `/` in file paths within markdown files
+- Windows paths with backslashes may not work correctly
+
+---
+
+## Version Control Recommendations
+
+**Commit to repository:**
+
+```gitignore
+# These should be version controlled
+AGENTS.md
+.amazonq/rules/
+.amazonq/aws-aidlc-rule-details/
+.kiro/steering/
+.kiro/aws-aidlc-rule-details/
+.aidlc-rule-details/
+```
+
+**Optional - Add to `.gitignore` (if needed):**
+
+```gitignore
+# Local-only settings
+.claude/settings.local.json
+```
