@@ -1,29 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Flappy Kiro</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      body {
-        background-color: #2c3e50;
-        overflow: hidden;
-        width: 100vw;
-        height: 100vh;
-      }
-      #game-canvas {
-        display: block;
-        image-rendering: pixelated;
-      }
-    </style>
-  </head>
-  <body>
-    <canvas id="game-canvas" data-testid="game-canvas"></canvas>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flappy Kiro — Viking Cyber Edition</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #050810;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #game-canvas {
+      display: block;
+      border-radius: 4px;
+      box-shadow: 0 0 40px rgba(0, 255, 255, 0.15), 0 0 80px rgba(0, 255, 255, 0.05);
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="game-canvas" data-testid="game-canvas"></canvas>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>
