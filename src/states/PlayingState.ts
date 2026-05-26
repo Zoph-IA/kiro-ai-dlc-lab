@@ -28,6 +28,7 @@ export class PlayingState implements GameState {
     private input: InputHandler;
     private stateMachine: StateMachine | null;
     private particles: { x: number; y: number; size: number; alpha: number; speed: number }[];
+    private paused: boolean;
 
     constructor(
         player: Player,
@@ -42,6 +43,7 @@ export class PlayingState implements GameState {
         this.audioManager = audioManager;
         this.input = input;
         this.stateMachine = null;
+        this.paused = false;
 
         // Generate particles
         this.particles = [];
@@ -64,13 +66,26 @@ export class PlayingState implements GameState {
         this.player.reset();
         this.wallManager.reset();
         this.scoreManager.reset();
+        this.paused = false;
     }
 
     exit(): void {
-        // Nothing
+        this.paused = false;
     }
 
     update(): void {
+        // Handle pause toggle
+        if (this.input.isPausePressed()) {
+            this.paused = !this.paused;
+        }
+
+        // If paused, consume inputs but don't update game logic
+        if (this.paused) {
+            this.input.isFlapping(); // consume so it doesn't trigger on unpause
+            this.input.reset();
+            return;
+        }
+
         // Handle flap input
         if (this.input.isFlapping()) {
             this.player.flap();
@@ -158,6 +173,15 @@ export class PlayingState implements GameState {
         ctx.fillStyle = color;
         ctx.fillText(text, W - 20, 30);
         ctx.restore();
+
+        // Pause overlay
+        if (this.paused) {
+            ctx.fillStyle = 'rgba(5, 8, 16, 0.75)';
+            ctx.fillRect(0, 0, W, H);
+            drawNeonBorder(ctx, W, H);
+            drawGlowText(ctx, '⏸  PAUSED', W / 2, H / 2 - 20, NEON.TEXT_CYAN, NEON.FONT_TITLE, 20);
+            drawGlowText(ctx, '[ P ] TO RESUME', W / 2, H / 2 + 30, NEON.TEXT_GREEN, NEON.FONT_BODY, 5);
+        }
     }
 
     private renderWalls(ctx: CanvasRenderingContext2D): void {

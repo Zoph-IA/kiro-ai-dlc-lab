@@ -5,10 +5,10 @@ export const CONFIG = {
     CANVAS_HEIGHT: 600,
 
     // Physics
-    GRAVITY: 0.5,
-    FLAP_IMPULSE: -8,
-    TERMINAL_VELOCITY_DOWN: 12,
-    TERMINAL_VELOCITY_UP: -10,
+    GRAVITY: 0.35,
+    FLAP_IMPULSE: -6.5,
+    TERMINAL_VELOCITY_DOWN: 9,
+    TERMINAL_VELOCITY_UP: -8,
 
     // Ground
     GROUND_Y: 560,
@@ -25,9 +25,9 @@ export const CONFIG = {
     FIRST_WALL_X: 600,
 
     // Difficulty (linear progression)
-    BASE_SPEED: 3,
-    SPEED_INCREMENT: 0.1,
-    MAX_SPEED: 8,
+    BASE_SPEED: 2.5,
+    SPEED_INCREMENT: 0.08,
+    MAX_SPEED: 6.5,
     BASE_GAP: 160,
     GAP_REDUCTION: 0.5,
     MIN_GAP: 120,

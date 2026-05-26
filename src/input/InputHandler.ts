@@ -13,6 +13,7 @@ export class InputHandler {
     private boundClick: (e: MouseEvent) => void;
     private boundKeyUp: (e: KeyboardEvent) => void;
     private spaceHeld: boolean;
+    private pausePressed: boolean;
 
     constructor(canvas: HTMLCanvasElement) {
         this.flapPressed = false;
@@ -20,6 +21,7 @@ export class InputHandler {
         this.clickY = 0;
         this.clicked = false;
         this.spaceHeld = false;
+        this.pausePressed = false;
 
         this.boundKeyDown = this.onKeyDown.bind(this);
         this.boundKeyUp = this.onKeyUp.bind(this);
@@ -28,6 +30,13 @@ export class InputHandler {
         document.addEventListener('keydown', this.boundKeyDown);
         document.addEventListener('keyup', this.boundKeyUp);
         canvas.addEventListener('click', this.boundClick);
+    }
+
+    /** Check if pause was pressed this frame (consumed on read) */
+    isPausePressed(): boolean {
+        const pressed = this.pausePressed;
+        this.pausePressed = false;
+        return pressed;
     }
 
     /** Check if flap was pressed this frame (consumed on read) */
@@ -72,6 +81,9 @@ export class InputHandler {
                 this.flapPressed = true;
                 this.spaceHeld = true;
             }
+        }
+        if (e.code === 'KeyP') {
+            this.pausePressed = true;
         }
     }
 

@@ -12,7 +12,8 @@ import { GameOverState } from './states/GameOverState.js';
 
 /**
  * Top-level game orchestrator.
- * Owns all components, runs the fixed-timestep game loop.
+ * Owns all components, runs a high-refresh game loop (up to 240 FPS render)
+ * with fixed-timestep physics updates for consistency.
  */
 export class Game {
     private canvas: HTMLCanvasElement;
@@ -26,15 +27,16 @@ export class Game {
 
     constructor(canvas: HTMLCanvasElement, sprite: HTMLImageElement | null) {
         this.canvas = canvas;
-        const ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext('2d', {
+            alpha: false, // Opaque canvas — faster compositing
+        });
         if (!ctx) {
             throw new Error('Failed to get 2D canvas context');
         }
         this.ctx = ctx;
 
-        // Set internal resolution
-        this.canvas.width = CONFIG.CANVAS_WIDTH;
-        this.canvas.height = CONFIG.CANVAS_HEIGHT;
+        // High-DPI / Retina support for crisp pixels
+        this.setupHiDPI();
 
         // Initialize components
         this.input = new InputHandler(canvas);
@@ -98,37 +100,70 @@ export class Game {
         }
     }
 
-    /** Fixed-timestep game loop with variable rendering */
+    /**
+     * Game loop — renders at the display's native refresh rate (up to 240Hz).
+     * Physics updates remain at a fixed 60Hz timestep for determinism.
+     * On 240Hz displays this means 4 renders per physics tick, giving ultra-smooth visuals.
+     */
     private loop(currentTime: number): void {
         if (!this.running) return;
 
-        const frameTime = Math.min(currentTime - this.lastTime, 100); // Cap to prevent spiral of death
+        const frameTime = Math.min(currentTime - this.lastTime, 100);
         this.lastTime = currentTime;
         this.accumulator += frameTime;
 
-        // Fixed-timestep updates
+        // Fixed-timestep physics updates (60 Hz)
         while (this.accumulator >= CONFIG.FIXED_TIMESTEP) {
             this.stateMachine.update(CONFIG.FIXED_TIMESTEP);
             this.accumulator -= CONFIG.FIXED_TIMESTEP;
         }
 
-        // Render
+        // Render every frame (at display refresh rate — 60/120/144/240 Hz)
         this.stateMachine.render(this.ctx);
 
         this.animationFrameId = requestAnimationFrame((t) => this.loop(t));
     }
 
+    /**
+     * Set up high-DPI canvas for crisp rendering on Retina/HiDPI displays.
+     * The canvas backing store is scaled by devicePixelRatio, then CSS scales it back down.
+     * This eliminates blurriness on high-density screens.
+     */
+    private setupHiDPI(): void {
+        const dpr = window.devicePixelRatio || 1;
+
+        // Set the actual pixel dimensions (backing store)
+        this.canvas.width = CONFIG.CANVAS_WIDTH * dpr;
+        this.canvas.height = CONFIG.CANVAS_HEIGHT * dpr;
+
+        // Scale the drawing context so game code still uses logical 800x600 coordinates
+        this.ctx.scale(dpr, dpr);
+
+        // Rendering quality settings
+        this.ctx.imageSmoothingEnabled = true;
+        this.ctx.imageSmoothingQuality = 'high';
+    }
+
     /** Handle responsive canvas scaling (BR-16) */
     private handleResize(): void {
+        const dpr = window.devicePixelRatio || 1;
         const scale = Math.min(
             window.innerWidth / CONFIG.CANVAS_WIDTH,
             window.innerHeight / CONFIG.CANVAS_HEIGHT,
         );
 
+        // CSS size (logical pixels on screen)
         this.canvas.style.width = `${CONFIG.CANVAS_WIDTH * scale}px`;
         this.canvas.style.height = `${CONFIG.CANVAS_HEIGHT * scale}px`;
         this.canvas.style.position = 'absolute';
         this.canvas.style.left = `${(window.innerWidth - CONFIG.CANVAS_WIDTH * scale) / 2}px`;
         this.canvas.style.top = `${(window.innerHeight - CONFIG.CANVAS_HEIGHT * scale) / 2}px`;
+
+        // Re-apply HiDPI backing store on resize
+        this.canvas.width = CONFIG.CANVAS_WIDTH * dpr;
+        this.canvas.height = CONFIG.CANVAS_HEIGHT * dpr;
+        this.ctx.scale(dpr, dpr);
+        this.ctx.imageSmoothingEnabled = true;
+        this.ctx.imageSmoothingQuality = 'high';
     }
 }
