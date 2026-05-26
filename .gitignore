@@ -18,3 +18,14 @@ venv/
 
 # Temporary folders
 tmp/
+
+# Build output
+dist/
+
+# Coverage
+coverage/
+
+# IDE
+.idea/
+*.swp
+*.swo
