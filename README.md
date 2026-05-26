@@ -80,6 +80,8 @@ Open the steering files panel and confirm you see an entry for `core-workflow` u
 
 We use Kiro IDE in Vibe mode to run the AI-DLC workflow. This ensures that AI-DLC workflow guides the development workflow in Kiro. At times, Kiro may nudge you to switch to spec mode. Select `No` to such prompts to stay in Vibe mode.
 
+> **Why Vibe mode?** AI-DLC defines its own structured workflow via steering files. Spec mode has its own built-in workflow that would conflict with AI-DLC's. Vibe mode provides a clean session where AI-DLC's steering rules take full control of the development process.
+
 <img src="./assets/images/kiro-sdd-nudge.png?raw=true" alt="Staying in Kiro Vibe mode" width="500" height="175">
 
 #### Verify in Kiro CLI
