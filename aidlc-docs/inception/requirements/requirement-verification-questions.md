@@ -11,7 +11,7 @@ C) Phaser.js game framework (feature-rich, larger bundle)
 D) p5.js creative coding library (beginner-friendly)
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]:  B
 
 ## Question 2
 What is the target platform for the game?
@@ -21,7 +21,7 @@ B) Mobile web browser only
 C) Both desktop and mobile (responsive)
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ## Question 3
 Should the game use the existing assets in the workspace (ghosty.png, jump.wav, game_over.wav)?
@@ -31,7 +31,7 @@ B) Yes — use existing assets but I may add more later
 C) No — I want to use different assets
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ## Question 4
 What visual style should the game have?
@@ -42,7 +42,7 @@ C) Colorful cartoon style
 D) Dark/spooky theme (matching the ghost character)
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: B
 
 ## Question 5
 Should the game include any of these additional features beyond core gameplay?
@@ -53,7 +53,7 @@ C) Start screen + game over screen with restart button + local high score
 D) Full experience: start screen, difficulty progression, high score, sound toggle
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: D
 
 ## Question 6
 How should the game difficulty behave?
@@ -63,7 +63,7 @@ B) Gradual increase (walls speed up or gaps shrink over time)
 C) Difficulty levels the player can choose before starting
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: B
 
 ## Question 7: Security Extensions
 Should security extension rules be enforced for this project?
@@ -72,7 +72,7 @@ A) Yes — enforce all SECURITY rules as blocking constraints (recommended for p
 B) No — skip all SECURITY rules (suitable for PoCs, prototypes, and experimental projects)
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ## Question 8: Property-Based Testing Extension
 Should property-based testing (PBT) rules be enforced for this project?
@@ -82,4 +82,4 @@ B) Partial — enforce PBT rules only for pure functions and serialization round
 C) No — skip all PBT rules (suitable for simple CRUD applications, UI-only projects, or thin integration layers with no significant business logic)
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
