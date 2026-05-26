@@ -13,7 +13,7 @@ C) esbuild directly (fastest builds, minimal config, less dev-server polish)
 D) tsc + simple HTTP server (no bundler, just TypeScript compiler)
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 2
 What test runner should be used for both example-based and property-based tests?
@@ -23,7 +23,7 @@ B) Jest (mature, widely used, works with fast-check)
 C) Mocha + Chai (flexible, works with fast-check)
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ### Question 3
 Should the game include a linter/formatter in the dev toolchain?
@@ -34,7 +34,7 @@ C) ESLint only (linting without opinionated formatting)
 D) None — keep toolchain minimal
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: E
 
 ---
 
@@ -42,9 +42,9 @@ X) Other (please describe after [Answer]: tag below)
 
 Once questions are answered, the following steps will be executed:
 
-- [ ] Step 1: Document performance requirements (60 FPS, frame budget)
-- [ ] Step 2: Document security requirements (SECURITY-04 headers, SECURITY-10 supply chain)
-- [ ] Step 3: Document tech stack decisions (build tool, test runner, PBT framework, linter)
-- [ ] Step 4: Document code quality requirements (TypeScript strict, module structure)
-- [ ] Step 5: Document browser compatibility requirements
-- [ ] Step 6: Generate NFR artifacts
+- [x] Step 1: Document performance requirements (60 FPS, frame budget)
+- [x] Step 2: Document security requirements (SECURITY-04 headers, SECURITY-10 supply chain)
+- [x] Step 3: Document tech stack decisions (build tool, test runner, PBT framework, linter)
+- [x] Step 4: Document code quality requirements (TypeScript strict, module structure)
+- [x] Step 5: Document browser compatibility requirements
+- [x] Step 6: Generate NFR artifacts
