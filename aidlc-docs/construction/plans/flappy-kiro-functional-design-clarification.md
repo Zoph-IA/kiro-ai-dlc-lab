@@ -12,4 +12,4 @@ A) Yes — I meant C) Logarithmic (fast early increase that plateaus)
 B) No — I meant A) Linear (constant increase per point)
 C) No — I meant something else (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: B

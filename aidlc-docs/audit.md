@@ -105,3 +105,26 @@
 **Context**: CONSTRUCTION - Functional Design. Questions focus on game-feel parameters that drive the physics and difficulty formulas.
 
 ---
+
+## Functional Design - Clarification Resolved and Artifacts Generated
+**Timestamp**: 2026-05-26T01:06:00Z
+**User Input**: "DONE"
+**AI Response**: Read clarification answer: B (Linear difficulty). Final answers: Q1=D (Responsive), Q2=C (Balanced physics), Q3=A (Linear). Generated 4 artifacts: business-logic-model.md (physics, walls, difficulty formulas, state machine), business-rules.md (16 rules), domain-entities.md (entities and relationships), testable-properties.md (22 PBT properties across 6 components — PBT-01 compliant). Presenting completion message.
+**Context**: CONSTRUCTION - Functional Design complete. All artifacts generated with PBT-01 compliance.
+
+---
+
+## Functional Design - User Approval
+**Timestamp**: 2026-05-26T01:07:00Z
+**User Input**: "Approved"
+**AI Response**: User approved functional design. Proceeding to NFR Requirements.
+**Context**: CONSTRUCTION - Functional Design approved. Moving to NFR Requirements.
+
+---
+
+## NFR Requirements - Questions Created
+**Timestamp**: 2026-05-26T01:07:30Z
+**AI Response**: Created flappy-kiro-nfr-requirements-plan.md with 3 questions covering build tool, test runner, and linter/formatter. Awaiting user answers.
+**Context**: CONSTRUCTION - NFR Requirements. Questions focus on toolchain decisions that affect development workflow and PBT-09 compliance.
+
+---

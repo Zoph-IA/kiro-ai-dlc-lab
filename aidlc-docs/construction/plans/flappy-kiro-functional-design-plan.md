@@ -42,11 +42,11 @@ X) Other (please describe after [Answer]: tag below)
 
 Once questions are answered, the following steps will be executed:
 
-- [ ] Step 1: Define game physics model (gravity, flap force, velocity caps, collision boxes)
-- [ ] Step 2: Define wall generation rules (spacing, gap sizing, randomization bounds)
-- [ ] Step 3: Define difficulty progression formulas (speed curve, gap curve, spawn rate)
-- [ ] Step 4: Define state machine transitions and business rules
-- [ ] Step 5: Define scoring rules and persistence logic
-- [ ] Step 6: Define audio trigger rules
-- [ ] Step 7: Identify testable properties for PBT (PBT-01 compliance)
-- [ ] Step 8: Generate functional design artifacts
+- [x] Step 1: Define game physics model (gravity, flap force, velocity caps, collision boxes)
+- [x] Step 2: Define wall generation rules (spacing, gap sizing, randomization bounds)
+- [x] Step 3: Define difficulty progression formulas (speed curve, gap curve, spawn rate)
+- [x] Step 4: Define state machine transitions and business rules
+- [x] Step 5: Define scoring rules and persistence logic
+- [x] Step 6: Define audio trigger rules
+- [x] Step 7: Identify testable properties for PBT (PBT-01 compliance)
+- [x] Step 8: Generate functional design artifacts
