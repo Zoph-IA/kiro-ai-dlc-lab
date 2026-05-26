@@ -50,11 +50,11 @@ D) Other (please describe after [Answer]: tag below)
 
 Once questions are answered, the following steps will be executed:
 
-- [ ] Step 1: Define player personas based on Question 4 answer
-- [ ] Step 2: Create user stories following the organization approach from Question 1
-- [ ] Step 3: Write acceptance criteria in the format from Question 3
-- [ ] Step 4: Apply granularity level from Question 2
-- [ ] Step 5: Verify all stories meet INVEST criteria
-- [ ] Step 6: Map personas to relevant stories
-- [ ] Step 7: Review stories against requirements.md for completeness
-- [ ] Step 8: Generate final stories.md and personas.md artifacts
+- [x] Step 1: Define player personas based on Question 4 answer
+- [x] Step 2: Create user stories following the organization approach from Question 1
+- [x] Step 3: Write acceptance criteria in the format from Question 3
+- [x] Step 4: Apply granularity level from Question 2
+- [x] Step 5: Verify all stories meet INVEST criteria
+- [x] Step 6: Map personas to relevant stories
+- [x] Step 7: Review stories against requirements.md for completeness
+- [x] Step 8: Generate final stories.md and personas.md artifacts
